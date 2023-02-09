@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf8" />
+    <title>大图滚动</title>
+  </head>
+
+  <style>
+    * {
+      border: 0;
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    .box {
+      overflow: hidden;
+      width: 1300px;
+      height: 400px;
+    }
+
+    .lunbo {
+      float: left;
+      width: 2600px;
+      height: 400px;
+    }
+
+    .lunbo > img {
+      float: left;
+      width: 260px;
+      height: 400px;
+    }
+  </style>
+
+  <body>
+    <div class="box">
+      <div class="lunbo" id="lunbo">
+        <img
+          src="http://pic0.iqiyipic.com/image/20220412/53/6e/v_166855639_m_601_m3_260_360.jpg?caplist=jpg,webp,avif,%20//pic0.iqiyipic.com/image/20220412/53/6e/v_166855639_m_601_m3_260_360.jpg?caplist=jpg,webp,avif%202x"
+        />
+        <img
+          src="http://puui.qpic.cn/vcover_vt_pic/0/mzc00200au8kyla1649663936904/350"
+        />
+        <img
+          src="http://puui.qpic.cn/vcover_vt_pic/0/mzc00200upu5qi11648787330562/350"
+        />
+        <img
+          src="http://puui.qpic.cn/vcover_vt_pic/0/mzc00200awcmu741648630288660/350"
+        />
+        <img
+          src="http://puui.qpic.cn/vcover_vt_pic/0/dt9oaxh094144711649149461225/350"
+        />
+        <img
+          src="http://pic0.iqiyipic.com/image/20220412/53/6e/v_166855639_m_601_m3_260_360.jpg?caplist=jpg,webp,avif,%20//pic0.iqiyipic.com/image/20220412/53/6e/v_166855639_m_601_m3_260_360.jpg?caplist=jpg,webp,avif%202x"
+        />
+        <img
+          src="http://puui.qpic.cn/vcover_vt_pic/0/mzc00200au8kyla1649663936904/350"
+        />
+        <img
+          src="http://puui.qpic.cn/vcover_vt_pic/0/mzc00200upu5qi11648787330562/350"
+        />
+        <img
+          src="http://puui.qpic.cn/vcover_vt_pic/0/mzc00200awcmu741648630288660/350"
+        />
+        <img
+          src="http://puui.qpic.cn/vcover_vt_pic/0/dt9oaxh094144711649149461225/350"
+        />
+      </div>
+    </div>
+  </body>
+  <script>
+    // 定时器锁
+    var time_lock = true;
+    // 鼠标锁
+    var mouse_lock = true;
+    // 轮播对象
+    var lunbo = document.getElementById("lunbo");
+    // 速度，正数向右滚动，负数向左滚动
+    var speed = -1;
+    // 初始赋值
+    if (speed < 0) {
+      lunbo.style.marginLeft = "0px";
+    } else {
+      lunbo.style.marginLeft = "-1300px";
+    }
+
+    //定时器
+    var timer = setInterval(() => {
+      if (time_lock && mouse_lock) {
+        // 取当前位移量
+        var l = parseInt(lunbo.style.marginLeft);
+
+        // 每到一张完整的图片就停一秒
+        if (l % 260 == 0) {
+          time_lock = false;
+          setTimeout(() => {
+            time_lock = true;
+          }, 1000);
+        }
+
+        // 使图片循环
+        if (l > 0 || l < -1300) {
+          if (speed < 0) {
+            lunbo.style.marginLeft = "0px";
+          } else {
+            lunbo.style.marginLeft = "-1300px";
+          }
+          return;
+        }
+        lunbo.style.marginLeft = l + speed + "px";
+      }
+    }, 1);
+
+    // 鼠标进入轮播图则停止滚动
+    lunbo.onmouseover = function () {
+      mouse_lock = false;
+    };
+
+    // 鼠标退出轮播图则继续滚动
+    lunbo.onmouseout = function () {
+      mouse_lock = true;
+    };
+  </script>
+</html>
